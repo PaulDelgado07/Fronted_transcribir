@@ -73,19 +73,34 @@ function App() {
   }
 
   return (
-    <main id="translator">
-      <div className="breadcrumb">
-        <span>Kichwa</span>
-        <span className="breadcrumb-sep">/</span>
-        <strong>Traducir video</strong>
-      </div>
-
-      <header className="hero">
-        <h1>Traductor de subtítulos al Kichwa</h1>
-        <p className="hero-sub">
-          Sube un video en español o inglés y obtén sus subtítulos en Kichwa.
-        </p>
+    <>
+      <header className="site-header">
+        <div className="site-header-inner">
+          <a href="/" className="brand">
+            <span className="brand-mark" aria-hidden="true"></span>
+            Kichwa
+          </a>
+          <nav className="site-nav" aria-label="Principal">
+            <a href="https://kichwa-api-675484317999.us-central1.run.app/docs" target="_blank" rel="noreferrer">
+              Probrar docs
+            </a>
+          </nav>
+        </div>
       </header>
+
+      <main id="translator">
+        <div className="breadcrumb">
+          <span>Kichwa</span>
+          <span className="breadcrumb-sep">/</span>
+          <strong>Traducir video</strong>
+        </div>
+
+        <div className="hero">
+          <h1>Traductor de subtítulos al Kichwa</h1>
+          <p className="hero-sub">
+            Sube un video en español o inglés y obtén sus subtítulos en Kichwa.
+          </p>
+        </div>
 
       <div className="upload-card">
         <label
@@ -173,7 +188,12 @@ function App() {
           </ul>
         </section>
       )}
-    </main>
+      </main>
+
+      <footer className="site-footer">
+        <p>Traductor de subtítulos al Kichwa · impulsado por Whisper y NLLB</p>
+      </footer>
+    </>
   )
 }
 
