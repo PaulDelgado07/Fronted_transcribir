@@ -16,13 +16,17 @@ async function unwrap(response) {
         : `El servidor respondió con un error (${response.status}).`,
     )
   }
+  if (response.status === 422 && Array.isArray(body.detail)) {
+    const detail = body.detail.map((issue) => `${issue.loc.at(-1)}: ${issue.msg}`).join('; ')
+    throw new Error(`Datos inválidos: ${detail}`)
+  }
   if (!response.ok || body.status !== 'success') {
     throw new Error(body.msg || 'Error en la petición')
   }
   return body.data
 }
 
-export async function transcribeVideo(file) {
+export async function transcribeVideo(file, sourceLangCode) {
   if (file.size > MAX_UPLOAD_BYTES) {
     throw new Error(
       `El video pesa ${(file.size / (1024 * 1024)).toFixed(1)} MB y el servidor solo acepta hasta 31 MB. Prueba con un video más corto o comprímelo.`,
@@ -31,6 +35,7 @@ export async function transcribeVideo(file) {
 
   const form = new FormData()
   form.append('video', file)
+  form.append('language', sourceLangCode)
 
   let response
   try {
